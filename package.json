@@ -1,5 +1,5 @@
 {
-  "name": "pizza_ordering_backend",
+  "name": "express_template",
   "version": "1.0.0",
   "main": "src/index.ts",
   "license": "MIT",
@@ -42,8 +42,8 @@
     "seed:run": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:run",
     "seed:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:create",
     "start:pm2": "cross-env ENV=production pm2 start ./dist/index.js --name pizza_backend",
-    "build:docker": "docker build -t vodang/pizza_backend .",
-    "start:docker": "docker run -d -it --name pizza_backend vodang/pizza_backend"
+    "build:docker": "docker build -t realkhoa/backend .",
+    "start:docker": "docker run -d -it --name backend realkhoa/backend"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14"
