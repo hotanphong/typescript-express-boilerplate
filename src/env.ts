@@ -7,6 +7,7 @@ const PORT_PER_ENV = {
     "production": 7682,
     "staging": 9241,
     "testing": 9243,
+    "jest": 5461
 }
 
 config();
@@ -18,11 +19,12 @@ const env_schema = z.object({
             z.literal('staging'),
             z.literal('production'),
             z.literal('testing'),
+            z.literal('jest')
         ])
         .optional()
         .default('development'),
     APP_PORT: z.string().regex(/^\d+$/).transform(Number).optional(),
-    DB_HOST: z.string().ip(),
+    DB_HOST: z.string(),
     DB_PORT: z.string().regex(/^\d+$/).transform(Number),
     DB_USERNAME: z.string(),
     DB_PASSWORD: z.string(),

@@ -29,10 +29,21 @@
     "zod": "^3.24.1"
   },
   "scripts": {
+    "setup": "sh ./common/setup.sh",
+    "setup:database": "sh ./common/setup-db.sh",
     "dev": "cross-env ENV=development nodemon --config nodemon.json",
-    "test": "cross-env ENV=testing jest",
-    "build": "rimraf dist && tsc -p tsconfig.json && tsc-alias",
+    "run:dev": "cross-env ENV=development nodemon --config nodemon.json",
+    "run:staging": "cross-env ENV=staging nodemon --config nodemon.json",
+    "run:test": "cross-env ENV=testing nodemon --config nodemon.json",
+    "run:jest": "cross-env ENV=jest jest",
+    "run:production": "cross-env ENV=production nodemon --config nodemon.json",
+    "run:database": "docker-compose up psql -d",
+    "run:pgadmin": "docker-compose up pgadmin4 -d",
     "start": "cross-env ENV=production node ./dist/index.js",
+    "start:pm2": "cross-env ENV=production pm2 start ./dist/index.js --name pizza_backend",
+    "start:docker": "docker run -d -it --name backend realkhoa/backend",
+    "build": "rimraf dist && tsc -p tsconfig.json && tsc-alias",
+    "build:docker": "docker build -t realkhoa/backend .",
     "migration:create": "ts-node ./src/runner/migration_create.ts",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d src/data-source.ts",
     "migration:show": "typeorm-ts-node-commonjs migration:show -d src/data-source.ts",
@@ -40,10 +51,7 @@
     "db:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:create --initialDatabase postgres",
     "db:drop": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:drop",
     "seed:run": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:run",
-    "seed:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:create",
-    "start:pm2": "cross-env ENV=production pm2 start ./dist/index.js --name pizza_backend",
-    "build:docker": "docker build -t realkhoa/backend .",
-    "start:docker": "docker run -d -it --name backend realkhoa/backend"
+    "seed:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:create"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14"

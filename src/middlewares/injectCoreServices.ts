@@ -1,39 +1,52 @@
-import {NextFunction, Request, Response} from "express";
+import { NextFunction, Request, Response } from "express";
 
 export function injectCoreServices(req: Request, res: Response, next: NextFunction) {
-    res.Ok = function (data: any = {}) {
-        this.status(200).json({
-            data: data,
-            statusCode: 200,
-        });
+    res.Ok = function (data: any, message: string = "Success") {
+        this.status(200).json({ message, data });
     }
 
-    res.BadRequest = function (message: string = "Bad Request") {
+    res.BadRequest = function (details: IDetailType, message: string = "Bad Request") {
         this.status(400).json({
-            message: message,
-            statusCode: 400
+            details, message
         });
     }
 
-    res.Unauthorized = function (message: string = "Unauthorized") {
+    res.Unauthorized = function (details: IDetailType, message: string = "Unauthorized") {
         this.status(401).json({
-            message: message,
-            statusCode: 401
-        })
+            details, message
+        });
     }
 
-    res.Forbidden = function (message: string = "Forbidden") {
+    res.Forbidden = function (details: IDetailType, message: string = "Forbidden") {
         this.status(403).json({
-            message: message,
-            statusCode: 403
-        })
+            details, message
+        });
     }
 
-    res.InternalServerError = function (message: string = "Internal Server Error") {
+    res.InternalServerError = function (details: IDetailType, message: string = "Internal Server Error") {
         this.status(500).json({
-            message: message,
-            statusCode: 500
-        })
+            details, message
+        });
+    }
+
+    res.NotFound = function (details: IDetailType, message: string = "Not Found") {
+        this.status(404).json({
+            details, message
+        });
+    }
+
+    res.Created = function (data: any, message: string = "Resource Created") {
+        this.status(201).json({ message, data });
+    }
+
+    res.NoContent = function (message: string = "No Content") {
+        this.status(204).json({ message });
+    }
+
+    res.MethodNotAllowed = function (message: string = "Method Not Allowed") {
+        this.status(405).json({
+            message
+        });
     }
 
     next();
